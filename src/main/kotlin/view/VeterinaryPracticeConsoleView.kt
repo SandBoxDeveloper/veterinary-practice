@@ -15,27 +15,7 @@ class VeterinaryPracticeConsoleView(private val presenter: Presenter) : ConsoleV
         presenter.search(searchQuery)
     }
 
-    override fun showCustomers(customers: List<CustomerEntity>) {
-        customers.forEach { customer ->
-            println("Customer: ${customer.customer}")
-            println("Identifier: ${customer.identifier}")
-            println("Pets: ${customer.pets}")
-            println()
-        }
-    }
-
-    override fun showPets(pets: List<PetEntity>) {
-        pets.forEach { pet ->
-            println("Pet: ${pet.pet}")
-            println("Type: ${pet.type}")
-            println("Identifier: ${pet.identifier}")
-            println("Owner: ${pet.owner}")
-            println("Owner ID: ${pet.ownerId}")
-            println()
-        }
-    }
-
-    override fun showCustomersAndPets(customers: List<CustomerEntity>, pets: List<PetEntity>) {
+    override fun showQueryResult(customers: List<CustomerEntity>, pets: List<PetEntity>) {
         customers.forEach { customer ->
             println("Customer: ${customer.customer}")
             println("Identifier: ${customer.identifier}")
@@ -48,6 +28,7 @@ class VeterinaryPracticeConsoleView(private val presenter: Presenter) : ConsoleV
             println("Identifier: ${pet.identifier}")
             println("Owner: ${pet.owner}")
             println("Owner ID: ${pet.ownerId}")
+            println()
         }
     }
 

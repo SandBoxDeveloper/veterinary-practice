@@ -60,7 +60,7 @@ class VeterinaryPracticeConsoleViewTest {
     @Test
     fun `showCustomers() - given customer information then customer details are printed`() {
         //when
-        subject.showCustomers(listOf(singleCustomerEntity))
+        subject.showQueryResult(customers = listOf(singleCustomerEntity), pets = emptyList())
 
         //then
         assertThat(
@@ -75,7 +75,7 @@ class VeterinaryPracticeConsoleViewTest {
     @Test
     fun `showCustomers() - given list of customer information then customer details are printed`() {
         //when
-        subject.showCustomers(customerEntities)
+        subject.showQueryResult(customers = customerEntities, pets = emptyList())
 
         //then
         assertThat(
@@ -94,7 +94,7 @@ class VeterinaryPracticeConsoleViewTest {
     @Test
     fun `showPets() - given pet information then the pet details are printed`() {
         //when
-        subject.showPets(listOf(singlePetEntity))
+        subject.showQueryResult(customers = emptyList(), pets = listOf(singlePetEntity))
 
         //then
         assertThat(
@@ -111,7 +111,7 @@ class VeterinaryPracticeConsoleViewTest {
     @Test
     fun `showPets() - given list of pet information then pet details are printed`() {
         //when
-        subject.showPets(petEntities)
+        subject.showQueryResult(customers = emptyList(), pets = petEntities)
 
         //then
         assertThat(
@@ -134,7 +134,7 @@ class VeterinaryPracticeConsoleViewTest {
     @Test
     fun `showCustomersAndPets() - given customer and pet information then customer and pet details are printed`() {
         //when
-        subject.showCustomersAndPets(listOf(singleCustomerEntity), listOf(singlePetEntity))
+        subject.showQueryResult(listOf(singleCustomerEntity), listOf(singlePetEntity))
 
         //then
         assertThat(

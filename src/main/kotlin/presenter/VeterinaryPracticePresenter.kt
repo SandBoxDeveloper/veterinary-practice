@@ -50,9 +50,7 @@ class VeterinaryPracticePresenter(
 
     override fun search(query: String) {
         when (val result = vetPracticeDatabase.query(query)) {
-            is SearchQueryResult.CustomerAndPetSuccess -> view.showCustomersAndPets(result.customers, result.pets)
-            is SearchQueryResult.CustomerSuccess -> view.showCustomers(customers = result.customers)
-            is SearchQueryResult.PetSuccess -> view.showPets(result.pets)
+            is SearchQueryResult.Success -> view.showQueryResult(result.customers, result.pets)
             is SearchQueryResult.Error -> view.showError(result.message)
         }
     }

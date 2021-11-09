@@ -64,7 +64,7 @@ class SearchDatabaseTest {
     }
 
     @Test
-    fun `queryAllDatabaseTable() - given query has a customer and pet match in the database then SearchQueryResultCustomerAndPetSuccess is returned with customer and pet`() {
+    fun `queryAllDatabaseTable() - given query has a customer and pet match in the database then SearchQueryResultSuccess is returned with customer and pet`() {
         //given
         every { mockLocalDatabase.getAllCustomers() } returns hashMapOf(
             Pair("1", Customer("1", "Albert")),
@@ -84,14 +84,15 @@ class SearchDatabaseTest {
         //then
         assertThat(
             result
-        ).isEqualTo(SearchQueryResult.CustomerAndPetSuccess(listOf(secondCustomerEntity), listOf(secondPetEntity)))
+        ).isEqualTo(SearchQueryResult.Success(customers = listOf(secondCustomerEntity), pets = listOf(secondPetEntity)))
     }
 
     @Test
-    fun `queryAllDatabaseTable() - given query has a customer match only in the database then SearchQueryResultCustomerSuccess is returned with customer entity`() {
+    fun `queryAllDatabaseTable() - given query has a customer match only in the database then SearchQueryResultSuccess is returned with customer entity`() {
         //given
         val query = "Albert"
         every { mockCustomerEntityMapper.map(any(), any()) } returns listOf(customerEntity)
+        every { mockPetEntityMapper.map(any(), any()) } returns emptyList()
 
         //when
         val result = subject.queryAllDatabaseTable(query)
@@ -99,14 +100,15 @@ class SearchDatabaseTest {
         //then
         assertThat(
             result
-        ).isEqualTo(SearchQueryResult.CustomerSuccess(listOf(customerEntity)))
+        ).isEqualTo(SearchQueryResult.Success(customers = listOf(customerEntity), pets = emptyList()))
     }
 
     @Test
-    fun `queryAllDatabaseTable() - given query has a pet match only in the database then SearchQueryResultPetSuccess is returned with pet entity`() {
+    fun `queryAllDatabaseTable() - given query has a pet match only in the database then SearchQueryResultSuccess is returned with pet entity`() {
         //given
         val query = "Johnny"
         every { mockPetEntityMapper.map(any(), any()) } returns listOf(petEntity)
+        every { mockCustomerEntityMapper.map(any(), any()) } returns emptyList()
 
         //when
         val result = subject.queryAllDatabaseTable(query)
@@ -114,7 +116,7 @@ class SearchDatabaseTest {
         //then
         assertThat(
             result
-        ).isEqualTo(SearchQueryResult.PetSuccess(listOf(petEntity)))
+        ).isEqualTo(SearchQueryResult.Success(customers = emptyList(), pets = listOf(petEntity)))
     }
 
     @Test
