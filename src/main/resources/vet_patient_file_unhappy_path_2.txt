@@ -1,0 +1,8 @@
+customer:1:Sam
+pet:1:cat:Kitkat:2
+customer:2:Voicu
+customer:3:Andre
+
+pet:2:dog:Barney:1
+pet:3:cat:Mr Fuzzy:1
+pet:4:goldfish:Harry:3

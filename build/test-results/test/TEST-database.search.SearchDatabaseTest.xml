@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="database.search.SearchDatabaseTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-11-09T17:58:12" hostname="TABLT0289-AndreHitchman" time="4.656">
+  <properties/>
+  <testcase name="queryAllDatabaseTable() - given query has no match at all in the database then SearchQueryResultError is returned with message" classname="database.search.SearchDatabaseTest" time="4.55"/>
+  <testcase name="queryAllDatabaseTable() - given search query is blank then SearchQueryResultError is returned with message" classname="database.search.SearchDatabaseTest" time="0.019"/>
+  <testcase name="queryAllDatabaseTable() - given search query is empty SearchQueryResultError is returned with message" classname="database.search.SearchDatabaseTest" time="0.003"/>
+  <testcase name="queryAllDatabaseTable() - given query has a customer match only in the database then SearchQueryResultCustomerSuccess is returned with customer entity" classname="database.search.SearchDatabaseTest" time="0.054"/>
+  <testcase name="queryAllDatabaseTable() - given query has a pet match only in the database then SearchQueryResultPetSuccess is returned with pet entity" classname="database.search.SearchDatabaseTest" time="0.012"/>
+  <testcase name="queryAllDatabaseTable() - given query has a customer and pet match in the database then SearchQueryResultCustomerAndPetSuccess is returned with customer and pet" classname="database.search.SearchDatabaseTest" time="0.017"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

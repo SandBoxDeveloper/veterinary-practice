@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="presenter.VeterinaryPracticePresenterTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2021-11-09T17:58:12" hostname="TABLT0289-AndreHitchman" time="4.922">
+  <properties/>
+  <testcase name="search() - given query that matches a pet in the database then pet is printed" classname="presenter.VeterinaryPracticePresenterTest" time="4.734"/>
+  <testcase name="start() - given file contents with first element labelled as 'Customer' and then mapping contents is NOT successful then show view error on line with message" classname="presenter.VeterinaryPracticePresenterTest" time="0.088"/>
+  <testcase name="start() - given file contents with first element labelled as 'Customer' and then mapping contents is successful then database insertCustomer is called" classname="presenter.VeterinaryPracticePresenterTest" time="0.01"/>
+  <testcase name="start() - given file contents with first element labelled as 'Pet' and then mapping contents is NOT successful then show view error on line with message" classname="presenter.VeterinaryPracticePresenterTest" time="0.051"/>
+  <testcase name="search() - given query that matches to both a customer and a pet in the database then view customer and pet message is printed" classname="presenter.VeterinaryPracticePresenterTest" time="0.007"/>
+  <testcase name="search() - given query that does not match either a customer or a pet in the database then view show error message printed" classname="presenter.VeterinaryPracticePresenterTest" time="0.006"/>
+  <testcase name="start() - given file contents with first element labelled as 'Pet' and then mapping contents is successful then database insertPet is called" classname="presenter.VeterinaryPracticePresenterTest" time="0.008"/>
+  <testcase name="start() - given file contents first element is not 'Customer' or 'Pet' then show view invalid error message" classname="presenter.VeterinaryPracticePresenterTest" time="0.004"/>
+  <testcase name="start() - given file contents size is less than or equal to 1 then show view invalid error message" classname="presenter.VeterinaryPracticePresenterTest" time="0.005"/>
+  <testcase name="search() - given query that matches a customer in the database then view customer is printed" classname="presenter.VeterinaryPracticePresenterTest" time="0.007"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
