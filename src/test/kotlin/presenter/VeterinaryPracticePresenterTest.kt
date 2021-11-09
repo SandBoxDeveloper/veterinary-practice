@@ -141,40 +141,40 @@ class VeterinaryPracticePresenterTest {
         every {
             mockLocalDatabase.query(searchQuery)
         }.returns(
-            SearchQueryResult.CustomerAndPetSuccess(customerEntities, petEntities)
+            SearchQueryResult.Success(customerEntities, petEntities)
         )
 
         //when
         subject.search(searchQuery)
 
         //then
-        verify { mockView.showCustomersAndPets(customerEntities, petEntities) }
+        verify { mockView.showQueryResult(customerEntities, petEntities) }
     }
 
     @Test
     fun `search() - given query that matches a customer in the database then view customer is printed`() {
         //given
         val searchQuery = "sam"
-        every { mockLocalDatabase.query(searchQuery) }.returns(SearchQueryResult.CustomerSuccess(customerEntities))
+        every { mockLocalDatabase.query(searchQuery) }.returns(SearchQueryResult.Success(customerEntities, emptyList()))
 
         //when
         subject.search(searchQuery)
 
         //then
-        verify { mockView.showCustomers(customerEntities) }
+        verify { mockView.showQueryResult(customers = customerEntities, pets = emptyList()) }
     }
 
     @Test
     fun `search() - given query that matches a pet in the database then pet is printed`() {
         //given
         val searchQuery = "sam"
-        every { mockLocalDatabase.query(searchQuery) }.returns(SearchQueryResult.PetSuccess(petEntities))
+        every { mockLocalDatabase.query(searchQuery) }.returns(SearchQueryResult.Success(emptyList(), petEntities))
 
         //when
         subject.search(searchQuery)
 
         //then
-        verify { mockView.showPets(petEntities) }
+        verify { mockView.showQueryResult(emptyList(), petEntities) }
     }
 
     @Test

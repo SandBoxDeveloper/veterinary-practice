@@ -30,13 +30,7 @@ class SearchDatabase(
             is MatchResult.CustomerAndPet -> {
                 val customers = getAllMatchingCustomerEntities(result.filteredCustomers)
                 val pets = getAllMatchingPetEntities(result.filteredPets)
-                SearchQueryResult.CustomerAndPetSuccess(customers, pets)
-            }
-            is MatchResult.Customer -> {
-                SearchQueryResult.CustomerSuccess(getAllMatchingCustomerEntities(result.filteredCustomers))
-            }
-            is MatchResult.Pet -> {
-                SearchQueryResult.PetSuccess(getAllMatchingPetEntities(result.filteredPets))
+                SearchQueryResult.Success(customers, pets)
             }
             is MatchResult.NoMatch -> {
                 SearchQueryResult.Error("no match found")
@@ -45,26 +39,14 @@ class SearchDatabase(
     }
 
     private fun checkTablesForAnyMatch(query: String): MatchResult {
-        val doesAnyCustomersMatch = vetPracticeDatabase.getAllCustomers().entries.any {
-            it.value.name.lowercase() == query
-        }
-        val doesAnyPetsMatch = vetPracticeDatabase.getAllPets().entries.any {
-            it.value.name.lowercase() == query
-        }
+        val doesAnyCustomersMatch = getMatchingResultsForCustomers(query)
+        val doesAnyPetsMatch = getMatchingResultsForPets(query)
 
         return when {
-            doesAnyCustomersMatch && doesAnyPetsMatch -> {
+            doesAnyCustomersMatch.isNotEmpty() || doesAnyPetsMatch.isNotEmpty() -> {
                 val filteredCustomers = getMatchingResultsForCustomers(query)
                 val filteredPets = getMatchingResultsForPets(query)
                 MatchResult.CustomerAndPet(filteredCustomers, filteredPets)
-            }
-            doesAnyCustomersMatch -> {
-                val filteredCustomers = getMatchingResultsForCustomers(query)
-                MatchResult.Customer(filteredCustomers)
-            }
-            doesAnyPetsMatch -> {
-                val filteredPets = getMatchingResultsForPets(query)
-                MatchResult.Pet(filteredPets)
             }
             else -> {
                 MatchResult.NoMatch
