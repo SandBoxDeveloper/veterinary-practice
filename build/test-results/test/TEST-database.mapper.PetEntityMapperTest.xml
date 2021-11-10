@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="database.mapper.PetEntityMapperTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-11-09T17:58:12" hostname="TABLT0289-AndreHitchman" time="2.427">
-  <properties/>
-  <testcase name="map() - given map of pets and empty map of customers then mapped list of PetEntity with no customers is returned" classname="database.mapper.PetEntityMapperTest" time="2.363"/>
-  <testcase name="map() - given empty map of pets and empty map of customer then empty mapped list of PetEntity is returned" classname="database.mapper.PetEntityMapperTest" time="0.06"/>
-  <testcase name="map() - given map of pets and map of customers then mapped list of PetEntity is returned" classname="database.mapper.PetEntityMapperTest" time="0.003"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

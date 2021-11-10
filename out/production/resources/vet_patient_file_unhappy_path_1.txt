@@ -1,5 +1,0 @@
-customer:1:Sam
-customer:2:Voicu
-customer:1:Harry
-pet:1:dog:Barney:1
-pet:2:cat:Mr Fuzzy:1
