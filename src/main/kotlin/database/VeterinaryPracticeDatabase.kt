@@ -1,12 +1,23 @@
 package database
 
+import database.mapper.CustomerEntityMapper
+import database.mapper.PetEntityMapper
+import database.model.SearchQueryResult
+import database.search.SearchDatabase
 import model.Customer
 import model.Pet
 
-object VeterinaryPracticeDatabase : LocalDatabase {
+object VeterinaryPracticeDatabase: LocalDatabase {
 
     private val customerTable = HashMap<String, Customer>()
     private val petTable = HashMap<String, Pet>()
+
+    // Injections
+    private val customerEntityMapper: CustomerEntityMapper by lazy { CustomerEntityMapper() }
+    private val petEntityMapper: PetEntityMapper by lazy { PetEntityMapper() }
+
+    // Violation. Tightly coupled
+    private val searchDatabase = SearchDatabase(this, customerEntityMapper, petEntityMapper)
 
     override fun insertCustomer(lineNumber: Int, customer: Customer) {
         return if (customerTable.containsKey(customer.id)) {
@@ -24,6 +35,10 @@ object VeterinaryPracticeDatabase : LocalDatabase {
         } else {
             petTable[pet.id] = pet
         }
+    }
+
+    override fun query(query: String): SearchQueryResult {
+        return searchDatabase.queryAllDatabaseTable(query)
     }
 
     override fun getAllCustomers(): HashMap<String, Customer> {

@@ -4,7 +4,6 @@ import database.LocalDatabase
 import database.entity.CustomerEntity
 import database.entity.PetEntity
 import database.model.SearchQueryResult
-import database.search.SearchDatabase
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
@@ -37,9 +36,6 @@ class VeterinaryPracticePresenterTest {
     lateinit var mockLocalDatabase: LocalDatabase
 
     @RelaxedMockK
-    lateinit var mockSearchDatabase: SearchDatabase
-
-    @RelaxedMockK
     lateinit var mockView: ConsoleView
 
     private val outputStreamCaptor = ByteArrayOutputStream()
@@ -49,8 +45,7 @@ class VeterinaryPracticePresenterTest {
             fileReader = mockFileReader,
             customerMapper = mockCustomerMapper,
             petMapper = mockPetMapper,
-            vetPracticeDatabase = mockLocalDatabase,
-            searchDatabase = mockSearchDatabase
+            vetPracticeDatabase = mockLocalDatabase
         ).apply {
             setupWithView(mockView)
         }
@@ -140,23 +135,11 @@ class VeterinaryPracticePresenterTest {
     }
 
     @Test
-    fun `search() - verify queryAllDatabaseTable() function is called`() {
-        //given
-        val searchQuery = "albert"
-
-        //when
-        subject.search(searchQuery)
-
-        //then
-        verify { mockSearchDatabase.queryAllDatabaseTable(searchQuery) }
-    }
-
-    @Test
     fun `search() - given query that matches to both a customer and a pet in the database then view customer and pet message is printed`() {
         //given
         val searchQuery = "albert"
         every {
-            mockSearchDatabase.queryAllDatabaseTable(searchQuery)
+            mockLocalDatabase.query(searchQuery)
         }.returns(
             SearchQueryResult.CustomerAndPetSuccess(customerEntities, petEntities)
         )
@@ -172,11 +155,7 @@ class VeterinaryPracticePresenterTest {
     fun `search() - given query that matches a customer in the database then view customer is printed`() {
         //given
         val searchQuery = "sam"
-        every {
-            mockSearchDatabase.queryAllDatabaseTable(searchQuery)
-        }.returns(
-            SearchQueryResult.CustomerSuccess(customerEntities)
-        )
+        every { mockLocalDatabase.query(searchQuery) }.returns(SearchQueryResult.CustomerSuccess(customerEntities))
 
         //when
         subject.search(searchQuery)
@@ -189,11 +168,7 @@ class VeterinaryPracticePresenterTest {
     fun `search() - given query that matches a pet in the database then pet is printed`() {
         //given
         val searchQuery = "sam"
-        every {
-            mockSearchDatabase.queryAllDatabaseTable(searchQuery)
-        }.returns(
-            SearchQueryResult.PetSuccess(petEntities)
-        )
+        every { mockLocalDatabase.query(searchQuery) }.returns(SearchQueryResult.PetSuccess(petEntities))
 
         //when
         subject.search(searchQuery)
@@ -206,11 +181,7 @@ class VeterinaryPracticePresenterTest {
     fun `search() - given query that does not match either a customer or a pet in the database then view show error message printed`() {
         //given
         val searchQuery = "albert"
-        every {
-            mockSearchDatabase.queryAllDatabaseTable(searchQuery)
-        }.returns(
-            SearchQueryResult.Error("no match found")
-        )
+        every { mockLocalDatabase.query(searchQuery) }.returns(SearchQueryResult.Error("no match found"))
 
         //when
         subject.search(searchQuery)

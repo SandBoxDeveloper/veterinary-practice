@@ -2,7 +2,6 @@ package presenter
 
 import database.LocalDatabase
 import database.model.SearchQueryResult
-import database.search.Search
 import mapper.CustomerMapper
 import mapper.PetMapper
 import mapper.domain.CustomerMapperResult
@@ -17,8 +16,7 @@ class VeterinaryPracticePresenter(
     private val fileReader: Reader,
     private val customerMapper: CustomerMapper,
     private val petMapper: PetMapper,
-    private val vetPracticeDatabase: LocalDatabase,
-    private val searchDatabase: Search
+    private val vetPracticeDatabase: LocalDatabase
 ) : Presenter {
 
     private lateinit var view: ConsoleView
@@ -51,7 +49,7 @@ class VeterinaryPracticePresenter(
     }
 
     override fun search(query: String) {
-        when (val result = searchDatabase.queryAllDatabaseTable(query)) {
+        when (val result = vetPracticeDatabase.query(query)) {
             is SearchQueryResult.CustomerAndPetSuccess -> view.showCustomersAndPets(result.customers, result.pets)
             is SearchQueryResult.CustomerSuccess -> view.showCustomers(customers = result.customers)
             is SearchQueryResult.PetSuccess -> view.showPets(result.pets)

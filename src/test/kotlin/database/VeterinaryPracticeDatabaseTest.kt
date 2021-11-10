@@ -1,9 +1,12 @@
 package database
 
 import com.google.common.truth.Truth.assertThat
+import database.search.SearchDatabase
 import io.mockk.MockKAnnotations
 import io.mockk.every
+import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.verify
 import model.Customer
 import model.Pet
 import java.io.ByteArrayOutputStream
@@ -19,6 +22,9 @@ class VeterinaryPracticeDatabaseTest {
 
     @RelaxedMockK
     lateinit var mockPet: Pet
+
+    @MockK
+    lateinit var mockSearchDatabase: SearchDatabase
 
     private val outputStreamCaptor = ByteArrayOutputStream()
 
@@ -61,7 +67,7 @@ class VeterinaryPracticeDatabaseTest {
     }
 
     @Test
-    fun `insertCustomer() - successfully`() {
+    fun insertCustomer() {
         //given
         val expectedCustomer = hashMapOf("1" to mockCustomer)
 
@@ -106,7 +112,7 @@ class VeterinaryPracticeDatabaseTest {
     }
 
     @Test
-    fun `insertPet() - successfully`() {
+    fun insertPet() {
         //given
         val expectedPet = hashMapOf("1" to mockPet)
 
@@ -119,7 +125,19 @@ class VeterinaryPracticeDatabaseTest {
     }
 
     @Test
-    fun `getAllCustomers() - all customers in database are returned`() {
+    fun query() {
+        //given
+        val searchQuery = "albert"
+
+        //when
+        subject.query(searchQuery)
+
+        //then
+        verify { mockSearchDatabase.queryAllDatabaseTable(searchQuery) }
+    }
+
+    @Test
+    fun getAllCustomers() {
         //given
         val expectedCustomer = hashMapOf("1" to mockCustomer)
 
@@ -131,7 +149,7 @@ class VeterinaryPracticeDatabaseTest {
     }
 
     @Test
-    fun `getAllPets() - all pets in database are returned`() {
+    fun getAllPets() {
         //given
         val expectedPet = hashMapOf("1" to mockPet)
 
