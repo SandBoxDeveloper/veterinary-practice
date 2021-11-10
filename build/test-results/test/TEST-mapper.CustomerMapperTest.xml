@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="mapper.CustomerMapperTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-11-09T17:58:12" hostname="TABLT0289-AndreHitchman" time="2.48">
-  <properties/>
-  <testcase name="map() - given list of customer contents with less than 3 fields then customer mapper result error is returned" classname="mapper.CustomerMapperTest" time="2.478"/>
-  <testcase name="map() - given list of customer contents with more than 3 fields then customer mapper result error is returned" classname="mapper.CustomerMapperTest" time="0.0"/>
-  <testcase name="map() - given list of customer contents then mapped customer objected is returned" classname="mapper.CustomerMapperTest" time="0.002"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
