@@ -1,5 +1,9 @@
 import database.LocalDatabase
 import database.VeterinaryPracticeDatabase
+import database.mapper.CustomerEntityMapper
+import database.mapper.PetEntityMapper
+import database.search.Search
+import database.search.SearchDatabase
 import mapper.CustomerMapper
 import mapper.PetMapper
 import presenter.Presenter
@@ -12,12 +16,16 @@ val fileReader: Reader by lazy { FileReader() }
 val customerMapper: CustomerMapper by lazy { CustomerMapper() }
 val petMapper: PetMapper by lazy { PetMapper() }
 val localDatabase: LocalDatabase by lazy { VeterinaryPracticeDatabase }
+val customerEntityMapper: CustomerEntityMapper by lazy { CustomerEntityMapper() }
+val petEntityMapper: PetEntityMapper by lazy { PetEntityMapper() }
+val searchDatabase: Search by lazy { SearchDatabase(localDatabase, customerEntityMapper, petEntityMapper) }
 val presenter: Presenter by lazy {
     VeterinaryPracticePresenter(
         fileReader,
         customerMapper,
         petMapper,
-        localDatabase
+        localDatabase,
+        searchDatabase
     )
 }
 
@@ -28,8 +36,8 @@ fun main() {
     println("Hi, please enter as follows to use program... {path/filename} {search query}")
 
     // receive and store inputs
-    var firstInput = ""
-    var secondInput = ""
+    val firstInput: String
+    val secondInput: String
 
     try {
         val result = readLine().toString().split(' ', limit = 2)
