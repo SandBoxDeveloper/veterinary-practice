@@ -8,7 +8,7 @@ class FileReader : Reader {
         var lines: List<String> = emptyList()
 
         try {
-            lines = File(fileName).readLines()
+            lines = File(fileName).readLines().filter { it.isNotEmpty() }
         } catch (exception: Exception) {
             when (exception) {
                 is FileNotFoundException -> println("Oops! - File not found.")

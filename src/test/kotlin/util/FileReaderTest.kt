@@ -4,7 +4,6 @@ import FileReader
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockkStatic
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -37,6 +36,29 @@ class FileReaderTest {
     fun `readFile() - given file then return list of strings of the file's contents data`() {
         // given
         val fileName = "src/test/resources/test_vet_patient_file_happy_path_1.txt"
+        val expectedOutputString: ArrayList<String> = arrayListOf(
+            "customer:1:Sam",
+            "customer:2:Voicu",
+            "customer:3:Andre",
+            "customer:4:Harry",
+            "pet:1:dog:Barney:1",
+            "pet:2:cat:Mr Fuzzy:1",
+            "pet:3:cat:Kitkat:2",
+            "pet:4:goldfish:Harry:3",
+            "pet:5:dog:Bob:4"
+        )
+
+        // when
+        val result = subject.readFile(fileName)
+
+        // then
+        assertThat(result).isEqualTo(expectedOutputString)
+    }
+
+    @Test
+    fun `readFile() - given file with empty lines then return list of strings of the file's contents data without empty lines`() {
+        // given
+        val fileName = "src/test/resources/test_vet_patient_file_with_empty_lines.txt"
         val expectedOutputString: ArrayList<String> = arrayListOf(
             "customer:1:Sam",
             "customer:2:Voicu",
